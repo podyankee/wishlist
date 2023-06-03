@@ -1,0 +1,22 @@
+extends ../layout/main
+
+block variables
+	- var title = 'Wishlist - список моих желаний';
+	- var description = 'Wishlist Service';
+	- var pageClass = 'body';
+	- var author = 'Kostyantin';
+
+
+
+block content
+	//- include ../includes/modules/header
+	main.app
+		//- include ../includes/modules/hero
+		//- include ../includes/modules/wishlist
+		include ../includes/modules/edit-profile
+		include ../includes/modules/edit-wish
+	
+	//- include ../includes/modules/footer
+	//- include ../includes/modal
+
+

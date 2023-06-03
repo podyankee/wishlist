@@ -1,0 +1,22 @@
+{
+  "files.exclude": {
+    "node_modules/": false,
+    "dist/": false,
+    "config/": false,
+    ".browserslistrc": false,
+    ".babelrc": false,
+    ".vscode/": false,
+    "package.json": false,
+    "package-lock.json": false,
+    ".nvmrc": false,
+    "webpack.config.js": false,
+    "public/": false,
+    "LICENSE": false,
+    "README.md": false,
+    "manifest.json": false,
+    "postcss.config.js": false
+  },
+  "git.ignoreLimitWarning": true,
+  "liveServer.settings.port": 5501,
+  "editor.fontSize": 16
+}

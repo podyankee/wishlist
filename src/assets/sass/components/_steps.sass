@@ -1,0 +1,16 @@
+.steps
+	display: flex
+	gap: 44px
+	justify-content: center
+	counter-reset: steps-counter
+	&__item
+		display: flex
+		align-items: center
+		flex-basis: 243px
+		font-size: 18px
+		&::before
+			content: counter(steps-counter)
+			counter-increment: steps-counter
+			color: rgba(255, 255, 255, 0.6)
+			font-size: 92px
+			margin-right: 16px
