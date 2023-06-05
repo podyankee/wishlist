@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const PATHS = {
 	src: path.join(__dirname, '../src'),
@@ -101,6 +102,10 @@ module.exports = {
 		},
 	},
 	plugins: [
+		new FaviconsWebpackPlugin({
+			logo: './src/assets/img/icon.svg',
+			inject: true,
+		}),
 		new CopyPlugin({
 			patterns: [
 				// { from: "css", to: "css" },
