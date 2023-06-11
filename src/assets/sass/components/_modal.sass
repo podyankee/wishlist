@@ -1,0 +1,127 @@
+.modal
+	position: fixed
+	z-index: 999
+	inset: 0
+	background-color: rgba(0, 0, 0, 0.5)
+	cursor: pointer
+	padding: 20px
+	overflow-y: auto
+	display: flex
+	&__main
+		position: relative
+		cursor: default
+		margin: auto
+		background-color: $white-color
+		color: #282828
+		padding: 74px 116px 188px
+		border-radius: 25px
+		max-width: 1000px
+	&__title
+		text-align: center
+		font-weight: 400
+		font-size: 64px
+		margin-bottom: 48px
+	&__description
+		text-align: center
+		font-size: 41px
+		font-weight: 300
+		margin-bottom: 40px
+	&__field
+		margin-bottom: 66px
+	&__label
+		display: block
+		margin-bottom: 32px
+		&:last-child
+			margin-bottom: 0
+	&__input
+		font-size: 48px
+		display: block
+		width: 100%
+		height: 120px
+		background-color: $white-color
+		border-radius: 15px
+		color: #282828
+		padding: 0 38px
+		border: 3px solid $primary-color
+	&__btn
+		background-color: $primary-color
+		color: $white-color
+		font-size: 59px
+		width: 100%
+		padding: 20px 40px
+	&__close
+		position: absolute
+		top: 34px
+		right: 34px
+		cursor: pointer
+		border: none
+		outline: 2px solid transparent
+		outline-offset: 2px
+		border-radius: 12px
+		&:focus-visible
+			outline-color: $primary-color
+
++minidesk
+	.modal
+		&__main
+			padding: 102px 40px 138px
+			max-width: 700px
+		&__title
+			font-size: 50px
+			margin-bottom: 40px
+		&__description
+			font-size: 34px
+			margin-bottom: 52px
+		&__field
+			margin-bottom: 74px
+		&__label
+			margin-bottom: 24px
+		&__input
+			padding: 0 36px
+			height: 100px
+		&__btn
+			font-size: 48px
+		&__close
+			top: 28px
+			right: 28px
+
++tablet
+	.modal
+		&__main
+			max-width: 600px
+		&__description
+			margin-bottom: 56px
+		&__field
+			margin-bottom: 62px
+		&__label
+			margin-bottom: 24px
+		&__input
+			font-size: 32px
++minitablet
+	.modal
+		padding: 10px
+		&__main
+			padding: 70px 16px 42px
+			border-radius: 15px
+		&__title
+			font-size: 36px
+			margin-bottom: 14px
+		&__description
+			font-size: 18px
+			margin-bottom: 17px
+		&__field
+			margin-bottom: 18px
+		&__label
+			margin-bottom: 12px
+		&__input
+			font-size: 24px
+			height: 60px
+			padding: 0 20px
+		&__btn
+			font-size: 24px
+			padding: 20px 15px
+		&__close
+			width: 34px
+			height: 34px
+			top: 16px
+			right: 16px

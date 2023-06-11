@@ -10,10 +10,7 @@
 
 		@if $i != length($props)
 			$result: append($result, unquote($string: ","))
-	transition: $result
-
-
-
+			transition: $result
 
 @mixin isFlex($align: center, $justify: center, $direction: row, $wrap: wrap)
 	display: flex
@@ -22,19 +19,16 @@
 	flex-direction: $direction
 	flex-wrap: $wrap
 
-
 @mixin bgImage($url, $position: top center, $repeat: no-repeat, $size: cover)
 	background-image: url($url)
 	background-position: $position
 	background-repeat: $repeat
 	background-size: $size
 
-
 @mixin container($width: 1124, $margin: auto, $padding: 0)
 	max-width: $width + px
 	margin: $margin
 	padding: $padding
-
 
 @function rem($pixels, $context: $mainFontSize)
 	@if unitless($pixels)
@@ -54,43 +48,42 @@
 		@content
 
 @mixin centered($axis: 'both')
-		position: absolute
-		@if $axis == 'both'
-				top: 50%
-				left: 50%
-				transform: translate(-50%, -50%)
+	position: absolute
+	@if $axis == 'both'
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
 		@if $axis == 'x'
-				left: 50%
-				transform: translateX(-50%)
+			left: 50%
+			transform: translateX(-50%)
 		@if $axis == 'y'
-				top: 50%
-				transform: translateY(-50%)
+			top: 50%
+			transform: translateY(-50%)
 
 @mixin dem($a,$b: $a)
 	width: $a
 	height: $b
 
 @function calculateRem($size)
-		$remSize: $size / 16px
-		@return $remSize * 1rem
-
+	$remSize: $size / 16px
+	@return $remSize * 1rem
 
 @mixin rem($size)
-		font-size: $size
+	font-size: $size
 		// font-size: calculateRem($size)
 
 @mixin absolute-center()
-		position: absolute
-		top: 50%
-		left: 50%
-		transform: translate(-50%,-50%)
+	position: absolute
+	top: 50%
+	left: 50%
+	transform: translate(-50%,-50%)
 
 @mixin absolute-all($num)
-		position: absolute
-		top: $num
-		bottom: $num
-		right: $num
-		left: $num
+	position: absolute
+	top: $num
+	bottom: $num
+	right: $num
+	left: $num
 
 @mixin font-face($font-family, $file-path, $weight: normal, $style: normal, $asset-pipeline: false )
 	@font-face
@@ -104,11 +97,11 @@
 			src: url('#{$file-path}.woff') format('woff'), url('#{$file-path}.woff2') format('truetype')
 
 @mixin abs-pos ($top: auto, $right: auto, $bottom: auto, $left: auto)
-		top: $top
-		right: $right
-		bottom: $bottom
-		left: $left
-		position: absolute
+	top: $top
+	right: $right
+	bottom: $bottom
+	left: $left
+	position: absolute
 
 // triangle (ширина, высота, фон, направление стрелки)
 =arr($width, $height, $bg, $direction)
@@ -139,8 +132,6 @@
 	@if $direction == bl
 		border-width: $height + px 0 0 $width + px
 		border-color: transparent transparent transparent $bg
-
-
 
 @mixin btn($bg: $black-color, $fs: 9px, $lh: 13px, $ls: 0.54px, $clr: $white-color, $br: 40px, $w: 114px)
 	width: $w
@@ -220,11 +211,11 @@
 		@content
 
 @mixin tablet
-	@media (max-width: (1024px))
+	@media (max-width: (992px))
 		@content
 
 @mixin minitablet
-	@media (max-width: (768px))
+	@media (max-width: (740px))
 		@content
 
 @mixin mobile
