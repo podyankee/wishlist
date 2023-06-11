@@ -44,7 +44,7 @@ export const renderModal = ({ title, description, btnSubmit, submitHandler }) =>
 
 	const modalSubmitBtn = createElement('button', {
 		className: 'modal__btn btn',
-		textContent: 'Зарегистрироваться',
+		textContent: btnSubmit,
 	});
 
 	const modalCloseBtn = createElement('button', {
