@@ -7,7 +7,7 @@ module.exports = merge(common, {
 	devServer: {
 		contentBase: './dist',
 		publicPath: '/',
-		port: 5000,
+		port: 4000,
 		// hot: true, // for js HMR, for html/pug off HMR
 		overlay: true,
 	},

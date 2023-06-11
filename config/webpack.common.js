@@ -18,6 +18,10 @@ module.exports = {
 		app: PATHS.src,
 	},
 
+	experiments: {
+		topLevelAwait: true,
+	},
+
 	output: {
 		filename: `${PATHS.assets}js/[name].[contenthash].js`,
 		path: PATHS.dist,
@@ -53,6 +57,7 @@ module.exports = {
 					loader: 'babel-loader',
 					options: {
 						presets: ['@babel/preset-env'],
+						plugins: ['@babel/plugin-syntax-top-level-await'],
 					},
 				},
 			},
