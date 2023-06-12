@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "6f3c9c6f-4cf0-4d90-a9a1-be1c043764fa",
+    "login": "piter",
+    "wish": {},
+    "avatar": "avatars/empty.png",
+    "birthdate": "1970/03/10",
+    "password": "aA1234"
+  }
+]

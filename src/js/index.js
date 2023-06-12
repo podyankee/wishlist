@@ -1,7 +1,8 @@
 import { renderNavigation } from './components/renderNavigation';
 import { createHero } from './components/createHero';
 import { JWT_TOKEN_KEY } from './components/const';
-import { getLogin } from './components/getLogin';
+import { getLogin } from './components/serviceAPI';
+import { createWishlist } from './components/createWishlist';
 
 export const router = Router();
 
@@ -22,7 +23,11 @@ const handleEditPageRoute = id => {};
 
 const handleEditProfileRoute = login => {};
 
-const handleUserRoute = login => {};
+const handleUserRoute = async login => {
+	app.textContent = '';
+	renderNavigation();
+	app.append(await createWishlist(login));
+};
 
 const init = () => {
 	let isMainPage = true;
