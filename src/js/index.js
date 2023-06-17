@@ -3,6 +3,7 @@ import { createHero } from './components/createHero';
 import { JWT_TOKEN_KEY } from './components/const';
 import { getLogin } from './components/serviceAPI';
 import { createWishlist } from './components/createWishlist';
+import { createEditProfile } from './components/createEditProfile';
 
 export const router = Router();
 
@@ -21,7 +22,12 @@ const handleHomePage = () => {
 
 const handleEditPageRoute = id => {};
 
-const handleEditProfileRoute = login => {};
+const handleEditProfileRoute = async login => {
+	app.textContent = '';
+	const { sectionEditProfile, formProfile } = await createEditProfile(login);
+	renderNavigation('profile', formProfile);
+	app.append(sectionEditProfile);
+};
 
 const handleUserRoute = async login => {
 	app.textContent = '';
