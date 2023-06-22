@@ -1,6 +1,7 @@
-import { getUser } from './serviceAPI.js';
+import { getUser, sendDataUser } from './serviceAPI.js';
 import { createElement, handleImageFileSelection, createSelectDate } from './helper';
 import { API_URL } from './const';
+import { router } from '../index';
 
 export const createEditProfile = async login => {
 	const user = await getUser(login);
@@ -14,7 +15,17 @@ export const createEditProfile = async login => {
 		className: 'edit__form',
 	});
 
-	formProfile.addEventListener('submitHandler', e => {});
+	formProfile.addEventListener('submit', async e => {
+		e.preventDefault();
+		const formData = new FormData(e.target);
+		const data = Object.fromEntries(formData);
+		if (data.day && data.month && data.year) {
+			data.birthdate = `${data.month}/${data.day}/${data.year}`;
+		}
+
+		await sendDataUser(user.id, data);
+		router.setRoute(`/user/${login}`);
+	});
 
 	const editAvatar = createElement('fieldset', { className: 'edit__avatar' });
 
@@ -44,7 +55,12 @@ export const createEditProfile = async login => {
 		accept: 'image/jpeg, image/png',
 	});
 
-	handleImageFileSelection(editAvatarInput, editAvatarImage);
+	const editHiddenInput = createElement('input', {
+		type: 'hidden',
+		name: 'avatar',
+	});
+
+	handleImageFileSelection(editAvatarInput, editAvatarImage, editHiddenInput);
 
 	const btnDeleteAvatar = createElement('button', {
 		className: 'edit__avatar-delete',
@@ -62,10 +78,10 @@ export const createEditProfile = async login => {
 		editAvatarImage.src = `assets/img/avatar.png`;
 	});
 
-	editAvatarLoad.append(editAvatarLabel, editAvatarInput, btnDeleteAvatar);
+	editAvatarLoad.append(editAvatarLabel, editAvatarInput, editHiddenInput, btnDeleteAvatar);
 	editAvatar.append(editAvatarImage, editAvatarLoad);
 
-	const editName = createElement('fieldset', { className: 'name' });
+	const editName = createElement('fieldset', { className: 'edit__name' });
 
 	const editNameLabel = createElement('label', {
 		className: 'edit__label',
@@ -161,12 +177,13 @@ export const createEditProfile = async login => {
 		className: 'edit__description-input',
 		name: 'description',
 		id: 'description',
+		value: user.description,
 	});
 
 	editDescription.append(editDescriptionLabel, editDescriptionTextarea);
 
 	const editSubmitBtn = createElement('button', {
-		className: 'edit__submit-btn',
+		className: 'btn edit__submit-btn',
 		textContent: 'Сохранить изменения',
 		type: 'submit',
 	});
