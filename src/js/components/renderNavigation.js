@@ -1,6 +1,6 @@
 import { createElement } from './helper';
 import { createBurgerMenu } from './createBurgerMenu';
-import { API_URL, JWT_TOKEN_KEY } from './const';
+import { API_URL, JWT_TOKEN_KEY, ROUTE_NEW_WISH } from './const';
 import { renderModal } from './renderModal';
 import { auth, router } from '../index.js';
 
@@ -51,7 +51,7 @@ export const renderNavigation = (edit, formProfile) => {
 		});
 
 		buttonAddWish.addEventListener('click', () => {
-			router.setRoute('editwish/newwish');
+			router.setRoute(`editwish/${ROUTE_NEW_WISH}`);
 		});
 
 		const buttonLogout = createElement('button', {
