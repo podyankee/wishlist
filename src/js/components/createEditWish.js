@@ -1,9 +1,9 @@
-import { ROUTE_NEW_WISH } from './const';
-import { createElement, createOptionsCurrency, handleImageFileSelection } from './helper';
+import { ROUTE_NEW_WISH, API_URL } from './const.js';
+import { createElement, createOptionsCurrency, handleImageFileSelection } from './helper.js';
+import { sendDataWish, getWish, updateDataWish, deleteWish } from './serviceAPI';
 
 export const createEditWish = async id => {
-	if (id === ROUTE_NEW_WISH) {
-	}
+	const wishData = id !== ROUTE_NEW_WISH && (await getWish(id));
 
 	const sectionEditWish = createElement('section', {
 		className: 'edit edit_wish',
@@ -13,6 +13,19 @@ export const createEditWish = async id => {
 	const formWish = createElement('form', {
 		className: 'edit__form',
 	});
+
+	formWish.addEventListener('submit', async e => {
+		e.preventDefault();
+		const formData = new FormData(e.target);
+		const data = Object.fromEntries(formData);
+		if (!wishData) {
+			await sendDataWish(data);
+		} else {
+			await updateDataWish(id, data);
+		}
+		history.back();
+	});
+
 	const editWish = createElement('fieldset', {
 		className: 'edit__wish',
 	});
@@ -24,10 +37,11 @@ export const createEditWish = async id => {
 		textContent: 'Описание',
 	});
 
-	const inputTitle = createElement('inputTitle', {
+	const inputTitle = createElement('input', {
 		className: 'edit__input',
 		name: 'title',
 		type: 'text',
+		value: wishData.title ?? '',
 	});
 
 	labelTitle.append(labelTextTitle, inputTitle);
@@ -40,10 +54,11 @@ export const createEditWish = async id => {
 		textContent: 'Категория:',
 	});
 
-	const inputCategory = createElement('inputTitle', {
+	const inputCategory = createElement('input', {
 		className: 'edit__input',
 		name: 'category',
 		type: 'text',
+		value: wishData.category ?? '',
 	});
 
 	labelCategory.append(labelTextCategory, inputCategory);
@@ -58,10 +73,11 @@ export const createEditWish = async id => {
 		textContent: 'Цена:',
 	});
 
-	const inputPrice = createElement('inputTitle', {
+	const inputPrice = createElement('input', {
 		className: 'edit__input',
 		name: 'price',
 		type: 'number',
+		value: wishData.price ?? '',
 	});
 
 	labelPrice.append(labelTextPrice, inputPrice);
@@ -75,7 +91,7 @@ export const createEditWish = async id => {
 		name: 'currency',
 	});
 
-	createOptionsCurrency(selectCurrency);
+	createOptionsCurrency(selectCurrency, wishData.currency);
 
 	labelCurrency.append(selectCurrency);
 	priceWrapper.append(labelPrice, labelCurrency);
@@ -88,10 +104,11 @@ export const createEditWish = async id => {
 		textContent: 'Ссылка:',
 	});
 
-	const inputLink = createElement('inputTitle', {
+	const inputLink = createElement('input', {
 		className: 'edit__input',
 		name: 'link',
 		type: 'text',
+		value: wishData.link ?? '',
 	});
 
 	labelLink.append(labelTextLink, inputLink);
@@ -104,7 +121,7 @@ export const createEditWish = async id => {
 
 	const photo = createElement('img', {
 		className: 'edit__wish-image',
-		src: 'assets/img/no-photo.png',
+		src: wishData.image ? `${API_URL}/${wishData.image}` : 'assets/img/no-photo.png',
 		alt: 'Фото желания',
 	});
 
@@ -125,9 +142,25 @@ export const createEditWish = async id => {
 				<path fill-rule="evenodd" clip-rule="evenodd" d="M23.1191 0.604187H22.8816C18.0712 0.604187 14.3024 0.604187 11.3607 1.00002C8.35241 1.40419 5.97741 2.25002 4.11283 4.11252C2.24824 5.9771 1.40449 8.3521 1.00033 11.3625C0.604492 14.3021 0.604492 18.0709 0.604492 22.8813V23.1188C0.604492 27.9292 0.604492 31.6979 1.00033 34.6396C1.40449 37.6479 2.25033 40.0229 4.11283 41.8875C5.97741 43.7521 8.35241 44.5959 11.3628 45C14.3024 45.3959 18.0712 45.3959 22.8816 45.3959H23.1191C27.9295 45.3959 31.6982 45.3959 34.6399 45C37.6482 44.5959 40.0232 43.75 41.8878 41.8875C43.7524 40.0229 44.5962 37.6479 45.0003 34.6375C45.3962 31.6979 45.3962 27.9292 45.3962 23.1188V22.8813C45.3962 18.0709 45.3962 14.3021 45.0003 11.3604C44.5962 8.3521 43.7503 5.9771 41.8878 4.11252C40.0232 2.24794 37.6482 1.40419 34.6378 1.00002C31.6982 0.604187 27.9295 0.604187 23.1191 0.604187ZM6.32324 6.32294C7.51074 5.13544 9.11491 4.45419 11.7795 4.09585C14.4878 3.73335 18.0462 3.72919 23.0003 3.72919C27.9545 3.72919 31.5128 3.73335 34.2212 4.09585C36.8857 4.45419 38.492 5.13752 39.6795 6.32294C40.8649 7.51044 41.5462 9.1146 41.9045 11.7792C42.267 14.4875 42.2712 18.0459 42.2712 23C42.2712 27.9542 42.267 31.5125 41.9045 34.2209C41.5462 36.8854 40.8628 38.4917 39.6774 39.6792C38.4899 40.8646 36.8857 41.5459 34.2212 41.9042C31.5128 42.2667 27.9545 42.2709 23.0003 42.2709C18.0462 42.2709 14.4878 42.2667 11.7795 41.9042C9.11491 41.5459 7.50866 40.8625 6.32116 39.6771C5.13574 38.4896 4.45449 36.8854 4.09616 34.2209C3.73366 31.5125 3.72949 27.9542 3.72949 23C3.72949 18.0459 3.73366 14.4875 4.09616 11.7792C4.45449 9.1146 5.13783 7.51044 6.32324 6.32294Z" fill="#365ABA"/>
 			</svg>           
 		`,
+		style: (photo.src.includes(API_URL) && !photo.src.includes('empty')) || 'display: none;',
 	});
 
-	const editHiddenInput = createElement('input', { type: 'hidden', name: 'img' });
+	const editHiddenInput = createElement('input', {
+		type: 'hidden',
+		name: 'image',
+		value: wishData.image ? `${API_URL}/${wishData.image}` : '',
+	});
+
+	inputPhoto.addEventListener('change', () => {
+		btnPhotoDelete.style.display = 'block';
+	});
+
+	btnPhotoDelete.addEventListener('click', () => {
+		photo.src = 'assets/img/no-photo.png';
+		editHiddenInput.value = '';
+		inputPhoto.value = '';
+		btnPhotoDelete.style.display = 'none';
+	});
 
 	handleImageFileSelection(inputPhoto, photo, editHiddenInput);
 
@@ -146,6 +179,11 @@ export const createEditWish = async id => {
 		className: 'edit__submit-btn btn',
 		textContent: 'Удалить желание',
 		type: 'button',
+	});
+
+	btnDeleteWish.addEventListener('click', async () => {
+		await deleteWish(id);
+		history.back();
 	});
 
 	editSubmitWrapper.append(btnSaveWish, btnDeleteWish);
